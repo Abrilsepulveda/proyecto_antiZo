@@ -1,47 +1,41 @@
-//EmpresaAdd.jsx
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { auth, createUserWithEmailAndPassword } from '../firebase';
+import { auth, createUserWithEmailAndPassword } from '../Firebase';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const db = getFirestore();
 
-<TouchableOpacity onPress={() => navigation.navigate('UsuariosAdd')}>
-  <Text style={styles.switchText}>Registrarse como Empleado</Text>
-</TouchableOpacity>
-
-
 export default function RegistroEmpresa({ navigation }) {
     const [nombreEmpresa, setNombreEmpresa] = useState('');
-    const [tipoEmpresa, setTipoEmpresa] = useState('');
+    const [rubro, setRubro] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [contacto, setContacto] = useState('');
 
-    const handleRegistro = () => {
+    const handleRegistroEmpresa = () => {
         createUserWithEmailAndPassword(auth, email, password)
-          .then(async (userCredential) => {
-            const user = userCredential.user;
-    
-            await setDoc(doc(db, "empresas", user.uid), {
-                nombreEmpresa: nombreEmpresa,
-                tipoEmpresa: tipoEmpresa,
-                email: email,
-                contacto: contacto,
-              });
-      
-              console.log('Empresa registrada con éxito');
-              navigation.navigate('Home'); 
+            .then(async (userCredential) => {
+                const user = userCredential.user;
+                await setDoc(doc(db, "empresas", user.uid), {
+                    nombreEmpresa: nombreEmpresa,
+                    rubro: rubro,
+                    email: email,
+                    contacto: contacto,
+                });
+                console.log('Empresa registrada con éxito');
+                navigation.navigate('Home');
             })
             .catch(error => {
-              console.error('Error al registrar la empresa:', error);
+                console.error('Error al registrar la empresa:', error);
             });
-  };
-        return (
-            <View style={styles.container}>
-              <Image source={require('../assets/imagenes/favicon.png')} style={styles.logo} />
-              <Text style={styles.title}>WorkMap</Text>
-              <TextInput
+    };
+
+    return (
+        <View style={styles.container}>
+            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
+            <Text style={styles.title}>Registro Empresa</Text>
+
+            <TextInput
                 style={styles.input}
                 placeholder="Nombre de la Empresa"
                 value={nombreEmpresa}
@@ -49,9 +43,9 @@ export default function RegistroEmpresa({ navigation }) {
             />
             <TextInput
                 style={styles.input}
-                placeholder="Tipo de Empresa"
-                value={tipoEmpresa}
-                onChangeText={setTipoEmpresa}
+                placeholder="Rubro"
+                value={rubro}
+                onChangeText={setRubro}
             />
             <TextInput
                 style={styles.input}
@@ -61,70 +55,90 @@ export default function RegistroEmpresa({ navigation }) {
                 keyboardType="email-address"
             />
             <TextInput
-                    style={styles.input}
-                    placeholder="Contraseña"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                />
+                style={styles.input}
+                placeholder="Contraseña"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+            />
             <TextInput
-                    style={styles.input}
-                    placeholder="Número de contacto"
-                    value={contacto}
-                    onChangeText={setContacto}
-                    keyboardType="phone-pad"
+                style={styles.input}
+                placeholder="Número de contacto"
+                value={contacto}
+                onChangeText={setContacto}
+                keyboardType="phone-pad"
             />
 
-        <TouchableOpacity style={styles.button} onPress={handleRegistro}>
-        <Text style={styles.buttonText}>Registrarme</Text>
-        </TouchableOpacity>
-    </View>
-  );  
+            <TouchableOpacity style={styles.button} onPress={handleRegistroEmpresa}>
+                <Text style={styles.buttonText}>Registrar Empresa</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('UsuariosAdd')}>
+                <Text style={styles.switchText}>Registrarse como Empleado</Text>
+            </TouchableOpacity>
+
+            {/* Botón para navegar a la pantalla de Login */}
+            <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.loginButtonText}>Ir a Login</Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
-// estilos
+
+// Estilos CSS dentro de la pantalla
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#EFFFA6',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 20,
+        flex: 1,
+        backgroundColor: '#EFFFA6',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
     },
     logo: {
         width: 80,
         height: 80,
         marginBottom: 20,
-      },
-      title: {
+    },
+    title: {
         fontSize: 36,
         fontWeight: 'bold',
         color: '#000',
         marginBottom: 30,
-      },
-      input: {
+    },
+    input: {
         width: '100%',
         padding: 15,
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 8,
         marginBottom: 15,
-      },
-      button: {
+    },
+    button: {
         width: '100%',
         backgroundColor: '#A4E168',
         padding: 15,
         borderRadius: 8,
         alignItems: 'center',
         marginTop: 20,
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: '#fff',
         fontWeight: 'bold',
-      },
-      switchText: {
+    },
+    switchText: {
         color: '#000',
         marginTop: 15,
-        fontSize: 16,
         textDecorationLine: 'underline',
-      },
-    });
+    },
+    loginButton: { // Estilo del botón para ir a login
+        marginTop: 20,
+        padding: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    loginButtonText: { // Estilo del texto del botón de login
+        color: '#A4E168',
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+    },
+});

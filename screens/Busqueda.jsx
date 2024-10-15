@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, FlatList, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
-import firebase from '../firebase';
+import firebase from '../Firebase';
 import { Ionicons } from '@expo/vector-icons';
 
 const BusquedaScreen = () => {
