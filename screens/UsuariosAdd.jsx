@@ -37,8 +37,8 @@ export default function RegistroEmpleado({ navigation }) {
     // Retornar el JSX para renderizar el componente
     return (
         <View style={styles.container}> // Contenedor principal
-            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> // Logo de la app
-            <Text style={styles.title}>WorkMap</Text> // Título de la app
+            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
+            <Text style={styles.title}>WorkMap</Text> 
 
             {/* Campos de entrada para el registro */}
             <TextInput
@@ -77,12 +77,12 @@ export default function RegistroEmpleado({ navigation }) {
 
             {/* Botón para registrar al empleado */}
             <TouchableOpacity style={styles.button} onPress={handleRegistro}>
-                <Text style={styles.buttonText}>Registrarme</Text> // Texto del botón
+                <Text style={styles.buttonText}>Registrarme</Text> 
             </TouchableOpacity>
 
             {/* Navegar a la pantalla de registro de empresa */}
             <TouchableOpacity onPress={() => navigation.navigate('EmpresaAdd')}>
-                <Text style={styles.switchText}>Registrarse como Empresa</Text> // Texto para cambiar de registro
+                <Text style={styles.switchText}>Registrarse como Empresa</Text> 
             </TouchableOpacity>
 
             {/* Botón para navegar a la pantalla de Login */}
