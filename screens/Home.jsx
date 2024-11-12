@@ -19,7 +19,7 @@ function Home({ navigation }) {
         <Text>Empresa</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Busqueda')}>
-        <Text>Search</Text>
+        <Text>Buscar</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
         <Text>Go to Login</Text>
