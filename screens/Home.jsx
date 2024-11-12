@@ -77,14 +77,7 @@ function Busqueda() {
     </View>
   );
 }
-// Pantalla para agregar empresa
-function EmpresaAdd() {
-  return (
-    <View style={styles.screenCenter}>
-      <Text>Perfil Empresa</Text>
-    </View>
-  );
-}
+
 
 // Estilos para el contenedor y el mapa
 const styles = StyleSheet.create({
