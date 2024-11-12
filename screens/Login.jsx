@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; // Para manejar la navegación entre pantallas
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'; // Componentes para la UI
-import { loginWithEmail, loginWithGoogle } from '../firebase/authService';
+import { loginWithEmail, loginWithGoogle } from '../screens/authService';
 
 export default function Login() {
     const navigation = useNavigation(); // Hook para obtener la navegación
