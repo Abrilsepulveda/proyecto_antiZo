@@ -81,7 +81,7 @@ function Busqueda() {
 function EmpresaAdd() {
   return (
     <View style={styles.screenCenter}>
-      <Text>Agregar Empresa</Text>
+      <Text>Perfil Empresa</Text>
     </View>
   );
 }
