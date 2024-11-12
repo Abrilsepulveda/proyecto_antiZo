@@ -36,7 +36,7 @@ export default function RegistroEmpleado({ navigation }) {
 
     // Retornar el JSX para renderizar el componente
     return (
-        <View style={styles.container}> // Contenedor principal
+        <View style={styles.container}> 
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
             <Text style={styles.title}>WorkMap</Text> 
 
