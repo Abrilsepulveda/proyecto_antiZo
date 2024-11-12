@@ -7,7 +7,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 // Pantalla principal con botones de navegación
-
+function Home({ navigation }) {
+  
+}
 
 // Defino el componente "MapScreen", donde muestro un mapa
 function MapScreen() {
