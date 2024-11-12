@@ -2,7 +2,9 @@ import React from 'react';
 import { View, StyleSheet, Dimensions, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 // Defino el componente "Home", que es la pantalla principal
 function Home({ navigation }) {
