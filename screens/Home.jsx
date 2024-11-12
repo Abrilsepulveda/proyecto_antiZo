@@ -16,7 +16,7 @@ function Home({ navigation }) {
         <Text>Usuario</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EmpresaAdd')}>
-        <Text>Add Company</Text>
+        <Text>Empresa</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Busqueda')}>
         <Text>Search</Text>
