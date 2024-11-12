@@ -65,14 +65,7 @@ function MapScreen() {
     </View>
   );
 }
-// Pantalla de búsqueda (sin funcionalidad adicional)
-function SearchScreen() {
-  return (
-    <View style={styles.screenCenter}>
-      <Text>Pantalla de Búsqueda</Text>
-    </View>
-  );
-}
+
 // Pantalla de perfil de usuario (sin funcionalidad adicional)
 function UserScreen() {
   return (
