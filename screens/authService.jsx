@@ -1,6 +1,6 @@
 // authService.js
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from './firebaseConfig';
+import { auth } from '../Firebase';
 
 // Inicio de sesión con correo y contraseña
 export const loginWithEmail = (email, password) => {
