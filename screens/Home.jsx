@@ -77,8 +77,6 @@ function Busqueda() {
     </View>
   );
 }
-
-
 // Estilos para el contenedor y el mapa
 const styles = StyleSheet.create({
   container: {
@@ -107,43 +105,5 @@ export default function App() {
         <Stack.Screen name="MapScreen" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
-}
-
-// Pantalla de búsqueda
-function Busqueda() {
-  return (
-    <View>
-      <Text>Buscar</Text>
-    </View>
-  );
-}
-
-// Pantalla para agregar empresa
-function EmpresaAdd() {
-  return (
-    <View>
-      <Text>Agregar Empresa</Text>
-    </View>
-  );
-}
-
-// Pantalla de login
-function Login({ navigation }) {
-  return (
-    <View>
-      <Text>Pantalla de Login</Text>
-      {/* Botón para navegar a la pantalla Home después de hacer login */}
-      <Button title="Login" onPress={() => navigation.navigate('Home')} />
-    </View>
-  );
-}
-
-// Pantalla para agregar usuario
-function UsuariosAdd() {
-  return (
-    <View>
-      <Text>Agregar Usuario</Text>
-    </View>
   );
 }
