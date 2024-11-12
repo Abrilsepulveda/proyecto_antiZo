@@ -66,7 +66,7 @@ function MapScreen() {
   );
 }
 
-// Pantalla de perfil de usuario (sin funcionalidad adicional)
+// perfil de usuario (sin funcionalidad adicional)
 function UserScreen() {
   return (
     <View style={styles.screenCenter}>
