@@ -52,6 +52,14 @@ function MapScreen() {
     </View>
   );
 }
+// Pantalla de búsqueda (sin funcionalidad adicional)
+function SearchScreen() {
+  return (
+    <View style={styles.screenCenter}>
+      <Text>Pantalla de Búsqueda</Text>
+    </View>
+  );
+}
 
 // Estilos para el contenedor y el mapa
 const styles = StyleSheet.create({
