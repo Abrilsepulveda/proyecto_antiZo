@@ -5,8 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MapView, { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-// Defino el componente "Home", que es la pantalla principal
+// Pantalla principal (con el mapa y marcadores)
 function Home({ navigation }) {
   return (
     <View>
