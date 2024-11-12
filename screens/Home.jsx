@@ -60,6 +60,7 @@ function SearchScreen() {
     </View>
   );
 }
+// Pantalla de perfil de usuario (sin funcionalidad adicional)
 
 // Estilos para el contenedor y el mapa
 const styles = StyleSheet.create({
