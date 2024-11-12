@@ -8,7 +8,34 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Pantalla principal con botones de navegación
 function Home({ navigation }) {
-  
+  return (
+    <View style={styles.container}>
+      <Text>Home Screen</Text>
+      {/* Botones de navegación */}
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('UsuariosAdd')}>
+        <Text>Add User</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EmpresaAdd')}>
+        <Text>Add Company</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Busqueda')}>
+        <Text>Search</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+        <Text>Go to Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MapScreen')}>
+        <Text>Go to Map</Text>
+      </TouchableOpacity>
+
+      {/* Barra de navegación inferior con íconos */}
+      <View style={styles.navBar}>
+        <Icon name="search" size={30} color="#000" onPress={() => navigation.navigate('Busqueda')} />
+        <Icon name="user" size={30} color="#000" onPress={() => navigation.navigate('UserScreen')} />
+        <Icon name="home" size={30} color="#000" onPress={() => navigation.navigate('Home')} />
+      </View>
+    </View>
+  );
 }
 
 // Defino el componente "MapScreen", donde muestro un mapa
