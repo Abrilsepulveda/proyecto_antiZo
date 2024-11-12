@@ -69,6 +69,14 @@ function UserScreen() {
   );
 }
 
+// Pantalla de búsqueda
+function Busqueda() {
+  return (
+    <View style={styles.screenCenter}>
+      <Text>Buscar</Text>
+    </View>
+  );
+}
 
 // Estilos para el contenedor y el mapa
 const styles = StyleSheet.create({
