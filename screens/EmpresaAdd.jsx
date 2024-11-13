@@ -39,6 +39,7 @@ export default function RegistroEmpresa({ navigation }) {
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
             <Text style={styles.title}>Registro Empresa</Text>
 
+            {/* Campos para el formulario */}
             <TextInput
                 style={styles.input}
                 placeholder="Nombre de la Empresa"
@@ -73,10 +74,13 @@ export default function RegistroEmpresa({ navigation }) {
                 keyboardType="phone-pad"
             />
 
+            {/* Botón de registro */}
             <TouchableOpacity style={styles.button} onPress={handleRegistroEmpresa}>
                 <Text style={styles.buttonText}>Registrar Empresa</Text>
             </TouchableOpacity>
 
+
+            {/* Opción para registrarse como usuario */}
             <TouchableOpacity onPress={() => navigation.navigate('UsuariosAdd')}>
                 <Text style={styles.switchText}>Registrarse como Empleado</Text>
             </TouchableOpacity>
