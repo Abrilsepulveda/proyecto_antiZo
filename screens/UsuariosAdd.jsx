@@ -25,6 +25,8 @@ export default function RegistroEmpleado({ navigation }) {
                     apellidos: apellidos,
                     email: email,
                     contacto: contacto,
+                    role: 'empleado', // Asignamos el rol de "empleado"
+                    active: true, // Indicamos que el empleado está activo
                 });
                 console.log('Empleado registrado con éxito'); // Mensaje de éxito en consola
                 navigation.navigate('Home'); // Navegar a la pantalla de inicio
@@ -34,9 +36,9 @@ export default function RegistroEmpleado({ navigation }) {
             });
     };
 
-    // Retornar el JSX para renderizar el componente
+    
     return (
-        <View style={styles.container}> // Contenedor principal
+        <View style={styles.container}> {/*Contenedor principal*/}
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
             <Text style={styles.title}>WorkMap</Text> 
 
