@@ -15,15 +15,19 @@ export default function RegistroEmpresa({ navigation }) {
     const handleRegistroEmpresa = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
-                const user = userCredential.user;
+                const user = userCredential.user;// Obtenemos el usuario creado en Firebase
+
+                // Almacenamos la información de la empresa en Firestore
                 await setDoc(doc(db, "empresas", user.uid), {
                     nombreEmpresa: nombreEmpresa,
                     rubro: rubro,
                     email: email,
                     contacto: contacto,
+                    role: 'empresa', // El rol de este usuario será 'empresa'
+                    active: true,  // Indicamos que la empresa está activa por defecto
                 });
                 console.log('Empresa registrada con éxito');
-                navigation.navigate('Home');
+                navigation.navigate('Home'); // Navegamos a la pantalla Home después de registrar la empresa
             })
             .catch(error => {
                 console.error('Error al registrar la empresa:', error);
