@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import InputField from '../componentes/InputField';
-import { auth, db } from '../Firebase'; // Importar auth y db desde Firebase.js
+import { auth, db } from '../Firebase'; 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
