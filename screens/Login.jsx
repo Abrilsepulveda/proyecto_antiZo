@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import InputField from '../componentes/InputField'; 
-import { loginWithEmail, loginWithGoogle } from '../screens/authService'; // Asegúrate de que la ruta esté bien
+import { loginWithEmail, loginWithGoogle } from '../componentes/authService'; // Asegúrate de que la ruta esté bien
 import { auth } from '../Firebase'; // Asegúrate de que la configuración de Firebase esté correcta
 
 export default function Login() {
