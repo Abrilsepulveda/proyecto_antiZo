@@ -15,6 +15,17 @@ export default function RegistroEmpresa({ navigation }) {
     const [contacto, setContacto] = useState('');
     const [error, setError] = useState('');
 
+
+    const validateInputs = () => {
+        if (!nombreEmpresa || !rubro || !email || !password || !confirmPassword || !contacto){
+            setError('Todos los campos son obligatorios!!!');
+            return false;
+        }
+        if (password !== confirmPassword) {
+            setError('Las contraseñas no coinciden');
+            return false;
+        }
+    };
     const handleRegistroEmpresa = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
