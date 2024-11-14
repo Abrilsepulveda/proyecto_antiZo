@@ -1,185 +1,199 @@
-// Login.jsx
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native'; // Para manejar la navegación entre pantallas
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'; // Componentes para la UI
-import { loginWithEmail, loginWithGoogle } from '../screens/authService';
+import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import InputField from '../componentes/InputField'; 
+import { loginWithEmail, loginWithGoogle } from '../screens/authService'; // Asegúrate de que la ruta esté bien
+import { auth } from '../Firebase'; // Asegúrate de que la configuración de Firebase esté correcta
 
 export default function Login() {
-    const navigation = useNavigation(); // Hook para obtener la navegación
-    const [email, setEmail] = useState(''); // Estado para el email
-    const [password, setPassword] = useState(''); // Estado para la contraseña
+  const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-    // Función para manejar el inicio de sesión (navegar a Home)
-    const handleLogin = () => {
-        loginWithEmail(email, password)
-        .then(() => {
-        navigation.navigate('Home'); // Navegamos a la pantalla Home
-    })
-    .catch((error) => {
-        console.error('Error al iniciar sesión:', error);
-        alert('Error al iniciar sesión. Verifica tus credenciales.');
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        checkUserRole(user); // Verifica el rol del usuario si ya está logueado
+      }
     });
-};
 
-const handleGoogleLogin = () => {
+    return () => unsubscribe();
+  }, []);
+
+  // Función que verifica el rol del usuario después de iniciar sesión
+  const checkUserRole = async (user) => {
+    const userRef = doc(db, 'empleados', user.uid); // Aquí puedes usar 'empresas' si el usuario es una empresa
+    const userDoc = await getDoc(userRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      const userRole = userData.role;
+
+      if (userRole === 'empleado') {
+        navigation.navigate('Home');
+      } else if (userRole === 'empresa') {
+        navigation.navigate('Home');
+      } else if (userRole === 'Administrador') {
+        navigation.navigate('homeAdmin');
+      }
+    }
+  };
+
+  // Maneja el inicio de sesión con correo y contraseña
+  const handleLogin = () => {
+    loginWithEmail(email, password)
+      .then((userCredential) => {
+        checkUserRole(userCredential.user); // Verifica el rol del usuario después del login
+      })
+      .catch((error) => {
+        setError('Error al iniciar sesión. Verifica tus credenciales.');
+        console.error(error.message);
+      });
+  };
+
+  // Maneja el inicio de sesión con Google
+  const handleGoogleLogin = () => {
     loginWithGoogle()
-        .then(() => {
-            navigation.navigate('Home');
-        })
-        .catch((error) => {
-            console.error('Error al iniciar sesión con Google:', error);
-            alert('Error al iniciar sesión con Google.');
-        });
-};
+      .then((userCredential) => {
+        checkUserRole(userCredential.user); // Verifica el rol del usuario después de iniciar sesión con Google
+      })
+      .catch((error) => {
+        console.error('Error al iniciar sesión con Google:', error);
+        setError('Error al iniciar sesión con Google.');
+      });
+  };
 
-    // Función para manejar el registro (navegar a UsuariosAdd)
-    const handleRegisterUser = () => {
-        navigation.navigate('UsuariosAdd');
-    };
+  return (
+    <View style={styles.container}>
+      <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
+      <Text style={styles.title}>WorkMap</Text>
+      <Text style={styles.subtitle}>Tu trabajo ideal, a un click de distancia</Text>
 
-    // Función para manejar el registro (navegar a EmpresaAdd)
-    const handleRegisterCompany = () => {
-        navigation.navigate('EmpresaAdd');
-    };
+      {/* Campo de correo */}
+      <InputField
+        placeholder="Correo electrónico"
+        value={email}
+        onChangeText={setEmail}
+        error={error && !email ? error : ''}
+      />
 
-    // Estructura del renderizado del componente
-    return (
-        <View style={styles.container}>
-            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
-            <Text style={styles.title}>WorkMap</Text>
-            <Text style={styles.subtitle}>Tu trabajo ideal, a un click de distancia</Text>
+      {/* Campo de contraseña */}
+      <InputField
+        placeholder="Contraseña"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+        error={error && !password ? error : ''}
+      />
 
-            <TextInput
-                style={styles.input}
-                placeholder="correo@gmail.com"
-                value={email}
-                onChangeText={setEmail}
-            />
+      <TouchableOpacity style={styles.forgotPassword}>
+        <Text style={styles.forgotPasswordText}>Recuperar contraseña</Text>
+      </TouchableOpacity>
 
-            <TextInput
-                style={styles.input}
-                placeholder="contraseña"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-            />
+      {/* Botón de inicio de sesión */}
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginButtonText}>Iniciar sesión</Text>
+      </TouchableOpacity>
 
-            <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.forgotPasswordText}>recuperar contraseña</Text>
-            </TouchableOpacity>
+      {/* Botón de inicio de sesión con Google */}
+      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleLogin}>
+        <Image source={require('../assets/imagenes/google.png')} style={styles.googleIcon} />
+        <Text style={styles.googleButtonText}>Continuar con Google</Text>
+      </TouchableOpacity>
 
-            {/* Botón para iniciar sesión que llama a la función handleLogin */}
-            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-                <Text style={styles.loginButtonText}>Iniciar sesión</Text>
-            </TouchableOpacity>
+      {/* Botón para registrarse como usuario */}
+      <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('UsuariosAdd')}>
+        <Text style={styles.registerText}>Registrarse como Usuario</Text>
+      </TouchableOpacity>
 
-            <TouchableOpacity style={styles.googleButton}>
-                <Image source={require('../assets/imagenes/google.png')} style={styles.googleIcon} />
-                <Text style={styles.googleButtonText}>Continuar con Google</Text>
-            </TouchableOpacity>
+      {/* Botón para registrarse como empresa */}
+      <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('EmpresaAdd')}>
+        <Text style={styles.registerText}>Registrarse como Empresa</Text>
+      </TouchableOpacity>
 
-            {/* Botón para registrarse como usuario */}
-            <TouchableOpacity style={styles.registerButton} onPress={handleRegisterUser}>
-                <Text style={styles.registerText}>Registrarse como Usuario</Text>
-            </TouchableOpacity>
-
-            {/* Botón para registrarse como empresa */}
-            <TouchableOpacity style={styles.registerButton} onPress={handleRegisterCompany}>
-                <Text style={styles.registerText}>Registrarse como Empresa</Text>
-            </TouchableOpacity>
-
-            <Text style={styles.footer}>
-                Al hacer clic en Continuar, aceptas nuestras Condiciones de servicio y Política de privacidad
-            </Text>
-        </View>
-    );
+      <Text style={styles.footer}>
+        Al hacer clic en Continuar, aceptas nuestras Condiciones de servicio y Política de privacidad
+      </Text>
+    </View>
+  );
 }
 
-// Estilos del componente Login
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: '#ffffff',
-    },
-    logo: {
-        width: 100,
-        height: 100,
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    subtitle: {
-        fontSize: 16,
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    input: {
-        width: '100%',
-        padding: 15,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        marginBottom: 15,
-    },
-    forgotPassword: {
-        marginBottom: 15,
-    },
-    forgotPasswordText: {
-        color: '#007BFF',
-        textDecorationLine: 'underline',
-    },
-    loginButton: {
-        width: '100%',
-        backgroundColor: '#007BFF',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    loginButtonText: {
-        color: '#ffffff',
-        fontWeight: 'bold',
-    },
-    googleButton: {
-        width: '100%',
-        backgroundColor: '#f0f0f0',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginBottom: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    googleIcon: {
-        width: 20,
-        height: 20,
-        marginRight: 10,
-    },
-    googleButtonText: {
-        color: '#333',
-    },
-    registerButton: {
-        width: '100%',
-        backgroundColor: '#007BFF',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    registerText: {
-        color: '#ffffff',
-        fontWeight: 'bold',
-    },
-    footer: {
-        marginTop: 20,
-        textAlign: 'center',
-        fontSize: 12,
-        color: '#555',
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  forgotPassword: {
+    marginBottom: 15,
+  },
+  forgotPasswordText: {
+    color: '#007BFF',
+    textDecorationLine: 'underline',
+  },
+  loginButton: {
+    width: '100%',
+    backgroundColor: '#007BFF',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  loginButtonText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
+  googleButton: {
+    width: '100%',
+    backgroundColor: '#f0f0f0',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  googleIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  googleButtonText: {
+    color: '#333',
+  },
+  registerButton: {
+    width: '100%',
+    backgroundColor: '#007BFF',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  registerText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
+  footer: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontSize: 12,
+    color: '#555',
+  },
 });
