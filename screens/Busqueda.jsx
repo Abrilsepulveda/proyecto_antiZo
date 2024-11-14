@@ -1,10 +1,8 @@
 // Busqueda.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, FlatList, Button } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import firebase from '../Firebase';
-import { Ionicons } from '@expo/vector-icons';
 
 const BusquedaScreen = () => {
     const navigation = useNavigation();
@@ -34,29 +32,6 @@ const BusquedaScreen = () => {
                 value={busqueda}
                 onChangeText={setBusqueda}
             />
-
-            <MapView
-                style={styles.map}
-                initialRegion={{
-                    latitude: -34.603722,
-                    longitude: -58.381592,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-            >
-                {/* Agregar marcadores para trabajos filtrados */}
-                {trabajosFiltrados.map(trabajo => (
-                    <Marker
-                        key={trabajo.id}
-                        coordinate={{
-                            latitude: trabajo.ubicacion.latitude,
-                            longitude: trabajo.ubicacion.longitude
-                        }}
-                        title={trabajo.nombre} // Título del marcador
-                        description={`Distancia: ${trabajo.distancia} min`} // Descripción del marcador
-                    />
-                ))}
-            </MapView>
 
             <FlatList
                 data={trabajosFiltrados}
@@ -93,10 +68,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         elevation: 2,
-    },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-        zIndex: -1,
     },
     card: {
         flexDirection: 'row',
