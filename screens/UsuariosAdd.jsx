@@ -65,6 +65,7 @@ export default function RegistroEmpleado({ navigation }) {
             <InputField placeholder="Confirmar Contraseña" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry error={error && !confirmPassword ? error : ''} />
             <InputField placeholder="Número de contacto" value={contacto} onChangeText={setContacto} keyboardType="phone-pad" error={error && !contacto ? error : ''} />
 
+            {error && <Text style={styles.errorMessage}>{error}</Text>}
 
             {/* Botón para registrar al empleado */}
             <TouchableOpacity style={styles.button} onPress={handleRegistro}>
