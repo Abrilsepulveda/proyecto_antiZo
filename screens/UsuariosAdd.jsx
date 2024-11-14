@@ -1,9 +1,11 @@
-import React, { useState } from 'react'; // Importar React y el hook useState
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'; // Importar componentes de React Native
-import { auth, createUserWithEmailAndPassword } from '../Firebase'; // Importar autenticación de Firebase
-import { getFirestore, doc, setDoc } from 'firebase/firestore'; // Importar Firestore para guardar datos
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import InputField from '../componentes/InputField';
+import { auth, db } from '../Firebase'; 
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 
-const db = getFirestore(); // Inicializar Firestore
+
 
 // Componente principal RegistroEmpleado que recibe navigation como prop
 export default function RegistroEmpleado({ navigation }) {
@@ -11,10 +13,26 @@ export default function RegistroEmpleado({ navigation }) {
     const [apellidos, setApellidos] = useState(''); // Estado para almacenar los apellidos
     const [email, setEmail] = useState(''); // Estado para almacenar el email
     const [password, setPassword] = useState(''); // Estado para almacenar la contraseña
+    const [role, setRole] = useState('empleado'); // Estado para almacenar el rol
     const [contacto, setContacto] = useState(''); // Estado para almacenar el contacto
+
+    // Función para validar los inputs
+    const validateInputs = () => {
+        if (!nombre || !apellidos || !email || !password || !confirmPassword || !contacto) {
+            setError('Todos los campos son obligatorios');
+            return false;
+        }
+        if (password !== confirmPassword) {
+            setError('Las contraseñas no coinciden');
+            return false;
+        }
+        setError('');
+        return true;
+    };
 
     // Función para manejar el registro de un empleado
     const handleRegistro = () => {
+        if (!validateInputs()) return;
         // Usar Firebase para crear un usuario con email y contraseña
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => { // Si se crea el usuario exitosamente
@@ -25,55 +43,33 @@ export default function RegistroEmpleado({ navigation }) {
                     apellidos: apellidos,
                     email: email,
                     contacto: contacto,
+                    role: 'empleado', // Asignamos el rol de "empleado"
+                    active: true, // Indicamos que el empleado está activo
                 });
                 console.log('Empleado registrado con éxito'); // Mensaje de éxito en consola
                 navigation.navigate('Home'); // Navegar a la pantalla de inicio
             })
             .catch(error => {
                 console.error('Error al registrar el empleado:', error); // Manejo de errores
+                setError('Error al registrar el empleado. Inténtalo de nuevo.');
             });
     };
 
-    // Retornar el JSX para renderizar el componente
+    
     return (
-        <View style={styles.container}> 
-            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
-            <Text style={styles.title}>WorkMap</Text> 
 
-            {/* Campos de entrada para el registro */}
-            <TextInput
-                style={styles.input}
-                placeholder="Nombre"
-                value={nombre}
-                onChangeText={setNombre} // Actualizar estado al cambiar texto
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Apellidos"
-                value={apellidos}
-                onChangeText={setApellidos} // Actualizar estado al cambiar texto
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail} // Actualizar estado al cambiar texto
-                keyboardType="email-address" // Tipo de teclado para email
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
-                value={password}
-                onChangeText={setPassword} // Actualizar estado al cambiar texto
-                secureTextEntry // Ocultar contraseña
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Número de contacto"
-                value={contacto}
-                onChangeText={setContacto} // Actualizar estado al cambiar texto
-                keyboardType="phone-pad" // Tipo de teclado para número de teléfono
-            />
+        <View style={styles.container}> {/*Contenedor principal*/}
+            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
+            <Text style={styles.title}>Registro Usuarios</Text> 
+
+            <InputField placeholder="Nombre" value={nombre} onChangeText={setNombre} error={error && !nombre ? error : ''} />
+            <InputField placeholder="Apellidos" value={apellidos} onChangeText={setApellidos} error={error && !apellidos ? error : ''} />
+            <InputField placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" error={error && !email ? error : ''} />
+            <InputField placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry error={error && !password ? error : ''} />
+            <InputField placeholder="Confirmar Contraseña" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry error={error && !confirmPassword ? error : ''} />
+            <InputField placeholder="Número de contacto" value={contacto} onChangeText={setContacto} keyboardType="phone-pad" error={error && !contacto ? error : ''} />
+
+            {error && <Text style={styles.errorMessage}>{error}</Text>}
 
             {/* Botón para registrar al empleado */}
             <TouchableOpacity style={styles.button} onPress={handleRegistro}>
