@@ -25,8 +25,13 @@ export default function RegistroEmpresa({ navigation }) {
             setError('Las contraseñas no coinciden');
             return false;
         }
+        setError('');
+        return true;
     };
+
     const handleRegistroEmpresa = () => {
+        if (!validateInputs()) return;
+
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
                 const user = userCredential.user;// Obtenemos el usuario creado en Firebase
@@ -45,6 +50,7 @@ export default function RegistroEmpresa({ navigation }) {
             })
             .catch(error => {
                 console.error('Error al registrar la empresa:', error);
+                setError('Error al registrar la empresa. Inténtalo de nuevo.');
             });
     };
 
