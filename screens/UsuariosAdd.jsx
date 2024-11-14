@@ -15,6 +15,7 @@ export default function RegistroEmpleado({ navigation }) {
     const [password, setPassword] = useState(''); // Estado para almacenar la contraseña
     const [contacto, setContacto] = useState(''); // Estado para almacenar el contacto
 
+    // Función para validar los inputs
     const validateInputs = () => {
         if (!nombre || !apellidos || !email || !password || !confirmPassword || !contacto) {
             setError('Todos los campos son obligatorios');
@@ -30,6 +31,7 @@ export default function RegistroEmpleado({ navigation }) {
 
     // Función para manejar el registro de un empleado
     const handleRegistro = () => {
+        if (!validateInputs()) return;
         // Usar Firebase para crear un usuario con email y contraseña
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => { // Si se crea el usuario exitosamente

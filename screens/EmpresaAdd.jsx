@@ -15,7 +15,7 @@ export default function RegistroEmpresa({ navigation }) {
     const [contacto, setContacto] = useState('');
     const [error, setError] = useState('');
 
-
+    // Función para validar los inputs
     const validateInputs = () => {
         if (!nombreEmpresa || !rubro || !email || !password || !confirmPassword || !contacto){
             setError('Todos los campos son obligatorios!!!');
@@ -28,7 +28,8 @@ export default function RegistroEmpresa({ navigation }) {
         setError('');
         return true;
     };
-
+    
+    // Función para manejar el registro de una empresa
     const handleRegistroEmpresa = () => {
         if (!validateInputs()) return;
 

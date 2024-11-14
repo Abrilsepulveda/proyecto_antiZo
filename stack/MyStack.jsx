@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { Button } from 'react-native';
+import { Button, ActivityIndicator } from 'react-native';
 import appFirebase from '../Firebase';
 import { getAuth, signOut } from 'firebase/auth'
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,6 +10,9 @@ import RegistroEmpresa from "../screens/EmpresaAdd";
 import RegistroUsuarios from "../screens/UsuariosAdd";
 import Home from "../screens/Home";
 import Busqueda from "../screens/Busqueda";
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../Firebase';
+
 // Importaciones adicionales
 import { StatusBar } from 'expo-status-bar'; // Para la barra de estado
 // Inicializar Firebase Auth
@@ -19,10 +22,12 @@ const auth = getAuth();
 const Stack = createStackNavigator();
 
 
-
 export default function MyStack() {
   const navigation = useNavigation();
 
+  const [userRole, setUserRole] = useState(null); // Estado para el rol del usuario
+  
+  // Función para cerrar sesión
   const CerrarSesion = () => {
     signOut(auth)
       .then(() => {
@@ -32,6 +37,9 @@ export default function MyStack() {
         console.error("Error al cerrar sesión: ", error);
       });
   };
+
+  // Función para obtener el rol del usuario desde Firestore
+  
 
   return (
     <Stack.Navigator initialRouteName="Login">
