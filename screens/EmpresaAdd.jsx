@@ -59,40 +59,15 @@ export default function RegistroEmpresa({ navigation }) {
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
             <Text style={styles.title}>Registro Empresa</Text>
 
-            {/* Campos para el formulario */}
-            <TextInput
-                style={styles.input}
-                placeholder="Nombre de la Empresa"
-                value={nombreEmpresa}
-                onChangeText={setNombreEmpresa}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Rubro"
-                value={rubro}
-                onChangeText={setRubro}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Número de contacto"
-                value={contacto}
-                onChangeText={setContacto}
-                keyboardType="phone-pad"
-            />
+            <InputField placeholder="Nombre de la Empresa" value={nombreEmpresa} onChangeText={setNombreEmpresa} error={error && !nombreEmpresa ? error : ''} />
+            <InputField placeholder="Nombre de la Empresa" value={nombreEmpresa} onChangeText={setNombreEmpresa} error={error && !nombreEmpresa ? error : ''} />
+            <InputField placeholder="Rubro" value={rubro} onChangeText={setRubro} error={error && !rubro ? error : ''} />
+            <InputField placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" error={error && !email ? error : ''} />
+            <InputField placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry error={error && !password ? error : ''} />
+            <InputField placeholder="Confirmar Contraseña" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry error={error && !confirmPassword ? error : ''} />
+            <InputField placeholder="Número de contacto" value={contacto} onChangeText={setContacto} keyboardType="phone-pad" error={error && !contacto ? error : ''} />
+
+            {error && <Text style={styles.errorMessage}>{error}</Text>}
 
             {/* Botón de registro */}
             <TouchableOpacity style={styles.button} onPress={handleRegistroEmpresa}>
