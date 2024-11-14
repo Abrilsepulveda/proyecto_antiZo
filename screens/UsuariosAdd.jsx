@@ -57,7 +57,8 @@ export default function RegistroEmpleado({ navigation }) {
 
     
     return (
-        <View style={styles.container}> 
+
+        <View style={styles.container}> {/*Contenedor principal*/}
 
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
             <Text style={styles.title}>Registro Usuarios</Text> 
