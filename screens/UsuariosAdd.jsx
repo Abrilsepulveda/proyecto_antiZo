@@ -144,29 +144,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textDecorationLine: 'underline',
     },
-    roleSelector: { // Estilo de los botones de rol
-        flexDirection: 'row',
-        marginTop: 20,
-        justifyContent: 'space-between',
-        width: '100%',
-    },
-    roleButton: { // Estilo de cada botón de rol
-        flex: 1,
-        padding: 10,
-        backgroundColor: '#304A6E',
-        borderRadius: 5,
-        marginHorizontal: 5,
-        alignItems: 'center',
-    },
-    selectedRole: { // Estilo para el rol seleccionado
-        backgroundColor: '#A4E168',
-    },
-    roleButtonText: { // Estilo del texto del botón de rol
-        color: '#fff',
-        fontWeight: 'bold',
-    },
-    errorMessage: { // Estilo del mensaje de error
-        color: 'red',
-        marginTop: 10,
-    },
 });
