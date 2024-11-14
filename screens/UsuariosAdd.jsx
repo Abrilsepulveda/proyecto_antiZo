@@ -1,9 +1,11 @@
-import React, { useState } from 'react'; // Importar React y el hook useState
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'; // Importar componentes de React Native
-import { auth, createUserWithEmailAndPassword } from '../Firebase'; // Importar autenticación de Firebase
-import { getFirestore, doc, setDoc } from 'firebase/firestore'; // Importar Firestore para guardar datos
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import InputField from '../componentes/InputField';
+import { auth, db } from '../Firebase'; // Importar auth y db desde Firebase.js
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 
-const db = getFirestore(); // Inicializar Firestore
+
 
 // Componente principal RegistroEmpleado que recibe navigation como prop
 export default function RegistroEmpleado({ navigation }) {
@@ -12,6 +14,19 @@ export default function RegistroEmpleado({ navigation }) {
     const [email, setEmail] = useState(''); // Estado para almacenar el email
     const [password, setPassword] = useState(''); // Estado para almacenar la contraseña
     const [contacto, setContacto] = useState(''); // Estado para almacenar el contacto
+
+    const validateInputs = () => {
+        if (!nombre || !apellidos || !email || !password || !confirmPassword || !contacto) {
+            setError('Todos los campos son obligatorios');
+            return false;
+        }
+        if (password !== confirmPassword) {
+            setError('Las contraseñas no coinciden');
+            return false;
+        }
+        setError('');
+        return true;
+    };
 
     // Función para manejar el registro de un empleado
     const handleRegistro = () => {
