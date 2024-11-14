@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; // Para manejar la navegación entre pantallas
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'; // Componentes para la UI
+import { loginWithEmail, loginWithGoogle } from '../screens/authService';
 
 export default function Login() {
     const navigation = useNavigation(); // Hook para obtener la navegación
@@ -10,9 +11,26 @@ export default function Login() {
 
     // Función para manejar el inicio de sesión (navegar a Home)
     const handleLogin = () => {
-        // Navegamos a la pantalla Home
-        navigation.navigate('Home'); 
-    };
+        loginWithEmail(email, password)
+        .then(() => {
+        navigation.navigate('Home'); // Navegamos a la pantalla Home
+    })
+    .catch((error) => {
+        console.error('Error al iniciar sesión:', error);
+        alert('Error al iniciar sesión. Verifica tus credenciales.');
+    });
+};
+
+const handleGoogleLogin = () => {
+    loginWithGoogle()
+        .then(() => {
+            navigation.navigate('Home');
+        })
+        .catch((error) => {
+            console.error('Error al iniciar sesión con Google:', error);
+            alert('Error al iniciar sesión con Google.');
+        });
+};
 
     // Función para manejar el registro (navegar a UsuariosAdd)
     const handleRegisterUser = () => {
