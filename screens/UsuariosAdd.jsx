@@ -59,7 +59,7 @@ export default function RegistroEmpleado({ navigation }) {
     return (
         <View style={styles.container}> {/*Contenedor principal*/}
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
-            <Text style={styles.title}>WorkMap</Text> 
+            <Text style={styles.title}>Registro Usuarios</Text> 
 
             <InputField placeholder="Nombre" value={nombre} onChangeText={setNombre} error={error && !nombre ? error : ''} />
             <InputField placeholder="Apellidos" value={apellidos} onChangeText={setApellidos} error={error && !apellidos ? error : ''} />
@@ -67,6 +67,13 @@ export default function RegistroEmpleado({ navigation }) {
             <InputField placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry error={error && !password ? error : ''} />
             <InputField placeholder="Confirmar Contraseña" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry error={error && !confirmPassword ? error : ''} />
             <InputField placeholder="Número de contacto" value={contacto} onChangeText={setContacto} keyboardType="phone-pad" error={error && !contacto ? error : ''} />
+
+            {/* Opciones de rol */}
+            <View style={styles.roleSelector}>
+                <TouchableOpacity onPress={() => setRole('empleado')} style={[styles.roleButton, role === 'empleado' && styles.selectedRole]}>
+                    <Text style={styles.roleButtonText}>Empleado</Text>
+                </TouchableOpacity>
+            </View>
 
             {error && <Text style={styles.errorMessage}>{error}</Text>}
 
@@ -143,5 +150,30 @@ const styles = StyleSheet.create({
         color: '#A4E168',
         fontWeight: 'bold',
         textDecorationLine: 'underline',
+    },
+    roleSelector: { // Estilo de los botones de rol
+        flexDirection: 'row',
+        marginTop: 20,
+        justifyContent: 'space-between',
+        width: '100%',
+    },
+    roleButton: { // Estilo de cada botón de rol
+        flex: 1,
+        padding: 10,
+        backgroundColor: '#304A6E',
+        borderRadius: 5,
+        marginHorizontal: 5,
+        alignItems: 'center',
+    },
+    selectedRole: { // Estilo para el rol seleccionado
+        backgroundColor: '#A4E168',
+    },
+    roleButtonText: { // Estilo del texto del botón de rol
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    errorMessage: { // Estilo del mensaje de error
+        color: 'red',
+        marginTop: 10,
     },
 });
