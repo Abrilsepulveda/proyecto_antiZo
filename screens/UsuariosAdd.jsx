@@ -48,6 +48,7 @@ export default function RegistroEmpleado({ navigation }) {
             })
             .catch(error => {
                 console.error('Error al registrar el empleado:', error); // Manejo de errores
+                setError('Error al registrar el empleado. Inténtalo de nuevo.');
             });
     };
 
@@ -57,40 +58,13 @@ export default function RegistroEmpleado({ navigation }) {
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
             <Text style={styles.title}>WorkMap</Text> 
 
-            {/* Campos de entrada para el registro */}
-            <TextInput
-                style={styles.input}
-                placeholder="Nombre"
-                value={nombre}
-                onChangeText={setNombre} // Actualizar estado al cambiar texto
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Apellidos"
-                value={apellidos}
-                onChangeText={setApellidos} // Actualizar estado al cambiar texto
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail} // Actualizar estado al cambiar texto
-                keyboardType="email-address" // Tipo de teclado para email
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
-                value={password}
-                onChangeText={setPassword} // Actualizar estado al cambiar texto
-                secureTextEntry // Ocultar contraseña
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Número de contacto"
-                value={contacto}
-                onChangeText={setContacto} // Actualizar estado al cambiar texto
-                keyboardType="phone-pad" // Tipo de teclado para número de teléfono
-            />
+            <InputField placeholder="Nombre" value={nombre} onChangeText={setNombre} error={error && !nombre ? error : ''} />
+            <InputField placeholder="Apellidos" value={apellidos} onChangeText={setApellidos} error={error && !apellidos ? error : ''} />
+            <InputField placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" error={error && !email ? error : ''} />
+            <InputField placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry error={error && !password ? error : ''} />
+            <InputField placeholder="Confirmar Contraseña" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry error={error && !confirmPassword ? error : ''} />
+            <InputField placeholder="Número de contacto" value={contacto} onChangeText={setContacto} keyboardType="phone-pad" error={error && !contacto ? error : ''} />
+
 
             {/* Botón para registrar al empleado */}
             <TouchableOpacity style={styles.button} onPress={handleRegistro}>
