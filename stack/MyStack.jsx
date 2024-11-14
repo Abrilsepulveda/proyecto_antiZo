@@ -10,13 +10,15 @@ import RegistroEmpresa from "../screens/EmpresaAdd";
 import RegistroUsuarios from "../screens/UsuariosAdd";
 import Home from "../screens/Home";
 import Busqueda from "../screens/Busqueda";
-import InputField from "../componentes/InputField";
-
+// Importaciones adicionales
+import { StatusBar } from 'expo-status-bar'; // Para la barra de estado
 // Inicializar Firebase Auth
 const auth = getAuth();
 
 // Crear el stack de navegación
 const Stack = createStackNavigator();
+
+
 
 export default function MyStack() {
   const navigation = useNavigation();
@@ -76,7 +78,7 @@ export default function MyStack() {
       {/* Pantalla EmpresaAdd */}
       <Stack.Screen
         name="EmpresaAdd"
-        component={EmpresaAdd}
+        component={RegistroEmpresa }
         options={{
           title: "Registrar Empresa",
           headerTintColor: 'white',
@@ -90,7 +92,7 @@ export default function MyStack() {
       {/* Pantalla UsuariosAdd */}
       <Stack.Screen
         name="UsuariosAdd"
-        component={UsuariosAdd}
+        component={RegistroUsuarios}
         options={{
           title: "Registrar Usuario",
           headerTintColor: 'white',
