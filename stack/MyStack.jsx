@@ -1,4 +1,3 @@
-import React from 'react';
 import 'react-native-gesture-handler';
 import { Button, ActivityIndicator } from 'react-native';
 import appFirebase from '../Firebase';
@@ -12,6 +11,8 @@ import Home from "../screens/Home";
 import Busqueda from "../screens/Busqueda";
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
+import React, { useState } from 'react';
+
 // Importaciones adicionales
 import { StatusBar } from 'expo-status-bar'; // Para la barra de estado
 
