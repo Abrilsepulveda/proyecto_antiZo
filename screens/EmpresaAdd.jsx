@@ -13,6 +13,7 @@ export default function RegistroEmpresa({ navigation }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [contacto, setContacto] = useState('');
+    const [role, setRole] = useState('empleado'); // Estado para almacenar el rol
     const [error, setError] = useState('');
 
     // Función para validar los inputs
@@ -27,8 +28,8 @@ export default function RegistroEmpresa({ navigation }) {
         }
         setError('');
         return true;
-    };
-    
+    }; 
+
     // Función para manejar el registro de una empresa
     const handleRegistroEmpresa = () => {
         if (!validateInputs()) return;

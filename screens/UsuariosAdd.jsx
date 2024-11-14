@@ -13,6 +13,7 @@ export default function RegistroEmpleado({ navigation }) {
     const [apellidos, setApellidos] = useState(''); // Estado para almacenar los apellidos
     const [email, setEmail] = useState(''); // Estado para almacenar el email
     const [password, setPassword] = useState(''); // Estado para almacenar la contraseña
+    const [role, setRole] = useState('empleado'); // Estado para almacenar el rol
     const [contacto, setContacto] = useState(''); // Estado para almacenar el contacto
 
     // Función para validar los inputs

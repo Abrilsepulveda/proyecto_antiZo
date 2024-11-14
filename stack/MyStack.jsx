@@ -12,9 +12,9 @@ import Home from "../screens/Home";
 import Busqueda from "../screens/Busqueda";
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
-
 // Importaciones adicionales
 import { StatusBar } from 'expo-status-bar'; // Para la barra de estado
+
 // Inicializar Firebase Auth
 const auth = getAuth();
 
@@ -39,8 +39,23 @@ export default function MyStack() {
   };
 
   // Función para obtener el rol del usuario desde Firestore
-  
+  const getUserRole = async (uid) => {
+    const userDoc = await getDoc(doc(db, 'empresas', uid));
+    if (userDoc.exists()) {
+      setUserRole(userDoc.data().role); // Asignamos el rol si se encuentra en Firestore
+    } else {
+      setUserRole('empleado'); // Si no existe en empresas, lo consideramos como empleado por defecto
+    }
+  };
 
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      getUserRole(user.uid); // Obtenemos el rol del usuario autenticado
+    }
+  }, [auth.currentUser]);
+
+  // Dependiendo del rol, configuramos las pantallas del Stack
   return (
     <Stack.Navigator initialRouteName="Login">
       {/* Pantalla Login */}
@@ -52,7 +67,8 @@ export default function MyStack() {
         }}
       />
 
-      {/* Pantalla Home */}
+      {/* Pantalla Home*/}
+      {userRole === 'empresa' || userRole === 'empleado' ? (
       <Stack.Screen
         name="Home"
         component={Home}
@@ -69,7 +85,10 @@ export default function MyStack() {
         }}
       />
 
+     ) : null}
+
       {/* Pantalla Busqueda */}
+      {userRole === 'empresa' || userRole === 'empleado' ? (
       <Stack.Screen
         name="Busqueda"
         component={Busqueda}
@@ -82,8 +101,11 @@ export default function MyStack() {
           },
         }}
       />
+    ) : null}
+
 
       {/* Pantalla EmpresaAdd */}
+      {userRole === 'empresa' ? (
       <Stack.Screen
         name="EmpresaAdd"
         component={RegistroEmpresa }
@@ -96,8 +118,10 @@ export default function MyStack() {
           },
         }}
       />
+    ) : null}
 
       {/* Pantalla UsuariosAdd */}
+      {userRole === 'empleado' ? (
       <Stack.Screen
         name="UsuariosAdd"
         component={RegistroUsuarios}
@@ -110,6 +134,7 @@ export default function MyStack() {
           },
         }}
       />
+    ) : null}
     </Stack.Navigator>
   );
 }
