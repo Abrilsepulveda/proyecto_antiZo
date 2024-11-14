@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
    
-    },
     card: {
         flexDirection: 'row',
         margin: 10,
