@@ -11,7 +11,9 @@ export default function RegistroEmpresa({ navigation }) {
     const [rubro, setRubro] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [contacto, setContacto] = useState('');
+    const [error, setError] = useState('');
 
     const handleRegistroEmpresa = () => {
         createUserWithEmailAndPassword(auth, email, password)
