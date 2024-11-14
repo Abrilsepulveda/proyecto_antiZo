@@ -15,4 +15,17 @@ import InputField from "../componentes/InputField";
 const Stack = createStackNavigator();
 const auth = getAuth(appFirebase);
 
+export default function MyStack() {
+    const navigation = useNavigation();
+    const CerrarSesion = () => {
+        signOut(auth)
+          .then(() => {
+            navigation.navigate('Login');
+          })
+          .catch(error => {
+            console.error("Error al cerrar sesion: ", error)
+        })
+    }
 
+    
+}
