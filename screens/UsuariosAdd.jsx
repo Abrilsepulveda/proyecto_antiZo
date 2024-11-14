@@ -68,13 +68,6 @@ export default function RegistroEmpleado({ navigation }) {
             <InputField placeholder="Confirmar Contraseña" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry error={error && !confirmPassword ? error : ''} />
             <InputField placeholder="Número de contacto" value={contacto} onChangeText={setContacto} keyboardType="phone-pad" error={error && !contacto ? error : ''} />
 
-            {/* Opciones de rol */}
-            <View style={styles.roleSelector}>
-                <TouchableOpacity onPress={() => setRole('empleado')} style={[styles.roleButton, role === 'empleado' && styles.selectedRole]}>
-                    <Text style={styles.roleButtonText}>Empleado</Text>
-                </TouchableOpacity>
-            </View>
-
             {error && <Text style={styles.errorMessage}>{error}</Text>}
 
             {/* Botón para registrar al empleado */}
