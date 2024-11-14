@@ -4,6 +4,7 @@ import { View, Text, TextInput, StyleSheet, Image, FlatList, Button } from 'reac
 import { useNavigation } from '@react-navigation/native';
 import firebase from '../Firebase';
 
+
 const BusquedaScreen = () => {
     const navigation = useNavigation();
     const [trabajos, setTrabajos] = useState([]);
@@ -32,6 +33,7 @@ const BusquedaScreen = () => {
                 value={busqueda}
                 onChangeText={setBusqueda}
             />
+
 
             <FlatList
                 data={trabajosFiltrados}
@@ -68,6 +70,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         elevation: 2,
+    },
+   
     },
     card: {
         flexDirection: 'row',
