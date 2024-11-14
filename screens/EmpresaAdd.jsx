@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { auth, createUserWithEmailAndPassword } from '../Firebase';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from '../Firebase';
+import {doc, setDoc } from 'firebase/firestore';
+import {auth, db} from "../Firebase";
+import InputField from "../componentes/InputField";
 
-const db = getFirestore();
 
 export default function RegistroEmpresa({ navigation }) {
     const [nombreEmpresa, setNombreEmpresa] = useState('');
