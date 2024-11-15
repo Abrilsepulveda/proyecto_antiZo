@@ -14,7 +14,7 @@ const BusquedaScreen = () => {
         const fetchTrabajos = async () => {
             const trabajosSnapshot = await firebase.firestore().collection('trabajos').get(); // Obtiene los datos de la colección "trabajos"
             const trabajosData = trabajosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Mapea los datos obtenidos
-            setTrabajos(trabajosData);
+            setTrabajos(trabajosData); // Actualiza el estado con los trabajos obtenidos
         };
 
         fetchTrabajos();
@@ -25,6 +25,7 @@ const BusquedaScreen = () => {
         trabajo.nombre.toLowerCase().includes(busqueda.toLowerCase())
     );
 
+    //Ejemplo de como se verian los trabajos
     const trabajos = [
         {
             id: '1',
