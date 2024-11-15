@@ -64,6 +64,14 @@ function MapScreen() {
     </View>
   );
 }
+//Búsqueda
+function Busqueda() {
+  return (
+    <View style={styles.center}>
+      <Text>Buscar</Text>
+    </View>
+  );
+}
 
 // Estilos para el contenedor y el mapa
 const styles = StyleSheet.create({
