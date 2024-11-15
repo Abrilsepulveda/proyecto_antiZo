@@ -52,17 +52,17 @@ const BusquedaScreen = () => {
         return (
             <View style={styles.bottomNav}>
                 {/* Redirige a la pantalla Home */}
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home.jsx')}>
                     <Image source={require('../assets/imagenes/home.png')} style={styles.navIcon} />
                 </TouchableOpacity>
     
                 {/* Mantiene en la pantalla de búsqueda */}
-                <TouchableOpacity onPress={() => navigation.navigate('Busqueda')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Busqueda.jsx')}>
                     <Image source={require('../assets/imagenes/lupa.png')} style={styles.navIcon} />
                 </TouchableOpacity>
     
                 {/* Redirige a la pantalla de perfil */}
-                <TouchableOpacity onPress={() => navigation.navigate('Usuario')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Usuario.jsx')}>
                     <Image source={require('../assets/imagenes/cuenta.png')} style={styles.navIcon} />
                 </TouchableOpacity>
             </View>
