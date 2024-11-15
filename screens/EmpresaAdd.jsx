@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { createUserWithEmailAndPassword } from '../Firebase';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import {doc, setDoc } from 'firebase/firestore';
-import {auth, db} from "../Firebase";
+import {auth, db} from '../Firebase';
 import InputField from "../componentes/InputField";
 
 
@@ -13,7 +13,6 @@ export default function RegistroEmpresa({ navigation }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [contacto, setContacto] = useState('');
-    const [role, setRole] = useState('empleado'); // Estado para almacenar el rol
     const [error, setError] = useState('');
 
     // Función para validar los inputs
@@ -45,10 +44,10 @@ export default function RegistroEmpresa({ navigation }) {
                     email: email,
                     contacto: contacto,
                     role: 'empresa', // El rol de este usuario será 'empresa'
-                    active: true,  // Indicamos que la empresa está activa por defecto
+                    active: true,  // Indica que la empresa está activa por defecto
                 });
                 console.log('Empresa registrada con éxito');
-                navigation.navigate('Home'); // Navegamos a la pantalla Home después de registrar la empresa
+                navigation.navigate('Home'); // Navega a la pantalla Home después de registrar la empresa
             })
             .catch(error => {
                 console.error('Error al registrar la empresa:', error);
@@ -61,7 +60,6 @@ export default function RegistroEmpresa({ navigation }) {
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
             <Text style={styles.title}>Registro Empresa</Text>
 
-            <InputField placeholder="Nombre de la Empresa" value={nombreEmpresa} onChangeText={setNombreEmpresa} error={error && !nombreEmpresa ? error : ''} />
             <InputField placeholder="Nombre de la Empresa" value={nombreEmpresa} onChangeText={setNombreEmpresa} error={error && !nombreEmpresa ? error : ''} />
             <InputField placeholder="Rubro" value={rubro} onChangeText={setRubro} error={error && !rubro ? error : ''} />
             <InputField placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" error={error && !email ? error : ''} />
