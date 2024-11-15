@@ -5,8 +5,8 @@ import { getAuth, signOut } from 'firebase/auth'
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Login from "../screens/Login";
-import RegistroEmpresa from "../screens/EmpresaAdd";
-import RegistroUsuarios from "../screens/UsuariosAdd";
+import EmpresaAdd from "../screens/EmpresaAdd";
+import UsuariosAdd from "../screens/UsuariosAdd";
 import Home from "../screens/Home";
 import Busqueda from "../screens/Busqueda";
 import { doc, getDoc } from 'firebase/firestore';
@@ -109,7 +109,7 @@ export default function MyStack() {
       {userRole === 'empresa' ? (
       <Stack.Screen
         name="EmpresaAdd"
-        component={RegistroEmpresa }
+        component={EmpresaAdd }
         options={{
           title: "Registrar Empresa",
           headerTintColor: 'white',
@@ -125,7 +125,7 @@ export default function MyStack() {
       {userRole === 'empleado' ? (
       <Stack.Screen
         name="UsuariosAdd"
-        component={RegistroUsuarios}
+        component={UsuariosAdd}
         options={{
           title: "Registrar Usuario",
           headerTintColor: 'white',

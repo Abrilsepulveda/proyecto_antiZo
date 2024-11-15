@@ -4,6 +4,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import InputField from '../componentes/InputField'; 
 import { loginWithEmail, loginWithGoogle } from '../componentes/authService'; // Asegúrate de que la ruta esté bien
 import { auth } from '../Firebase'; // Asegúrate de que la configuración de Firebase esté correcta
+import { doc, getDoc } from 'firebase/firestore';
+
 
 export default function Login() {
   const navigation = useNavigation();
