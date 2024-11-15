@@ -1,24 +1,38 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, Text, Button } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, Button, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import MapView, { Marker } from 'react-native-maps';
+import Icon from 'react-native-vector-icons/Ionicons';
 // import MapView, { Marker } from 'react-native-maps';
 
 // Defino el componente "Home", que es la pantalla principal
 function Home({ navigation }) {
   return (
-    <View>
-      <Text>Home Screen</Text>
-      {/* Uso un botón para navegar a la pantalla de agregar usuario */}
-      <Button title="Add User" onPress={() => navigation.navigate('UsuariosAdd')} />
-      {/* Uso un botón para navegar a la pantalla de agregar empresa */}
-      <Button title="Add Company" onPress={() => navigation.navigate('EmpresaAdd')} />
-      {/* Uso un botón para navegar a la pantalla de búsqueda */}
-      <Button title="Search" onPress={() => navigation.navigate('Busqueda')} />
-      {/* Uso un botón para navegar a la pantalla de login */}
-      <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
-      {/* Uso un botón para navegar a la pantalla del mapa */}
-      <Button title="Go to Map" onPress={() => navigation.navigate('MapScreen')} />
+    <View style={styles.container}>
+      <View style={styles.map}>
+        {/* Botones de navegación a las distintas pantallas */}
+        <Button title="Add User" onPress={() => navigation.navigate('UsuariosAdd')} />
+        <Button title="Add Company" onPress={() => navigation.navigate('EmpresaAdd')} />
+        <Button title="Search" onPress={() => navigation.navigate('Busqueda')} />
+        <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
+        <Button title="Go to Map" onPress={() => navigation.navigate('MapScreen')} />
+      </View>
+          {/* Barra de navegación inferior */}
+          <View style={styles.bottomNav}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Icon name="home-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Busqueda')}>
+          <Icon name="search-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('EmpresaAdd')}>
+          <Icon name="business-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('UsuariosAdd')}>
+          <Icon name="person-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -50,17 +64,14 @@ function MapScreen() {
     </View>
   );
 }
-
-// Estilos para el contenedor y el mapa
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, // Ocupo toda la pantalla con el contenedor
-  },
-  map: {
-    width: Dimensions.get('window').width, // El ancho del mapa es igual al de la pantalla
-    height: Dimensions.get('window').height, // El alto del mapa es igual al de la pantalla
-  },
-});
+//Búsqueda
+function Busqueda() {
+  return (
+    <View style={styles.center}>
+      <Text>Buscar</Text>
+    </View>
+  );
+}
 
 // Creo el Stack Navigator para la navegación entre pantallas
 const Stack = createStackNavigator();
@@ -119,3 +130,30 @@ function UsuariosAdd() {
     </View>
   );
 }
+// Estilos para el contenedor y el mapa
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 60, // Descuento de la altura de la barra de navegación
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: 60,
+    backgroundColor: '#e0f7fa',
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+  navbarIcon: {
+    color: '#4CAF50',
+  },
+});

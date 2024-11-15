@@ -1,14 +1,12 @@
 // Busqueda.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, FlatList, Button } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { View, Text, TextInput, StyleSheet, Image, FlatList, Button, TouchableOpacity  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import firebase from '../Firebase';
-import { Ionicons } from '@expo/vector-icons';
+
 
 const BusquedaScreen = () => {
     const navigation = useNavigation();
-    const [trabajos, setTrabajos] = useState([]);
     const [busqueda, setBusqueda] = useState('');
 
     useEffect(() => {
@@ -26,6 +24,51 @@ const BusquedaScreen = () => {
         trabajo.nombre.toLowerCase().includes(busqueda.toLowerCase())
     );
 
+    const trabajos = [
+        {
+            id: '1',
+            nombre: 'Ferracioli, Paseo de la Patagonia',
+            ubicacion: 'Paseo de la Patagonia',
+            distancia: '2 km',
+            imagen: require('../assets/imagenes/paseo.png')
+        },
+        {
+            id: '2',
+            nombre: 'Starbucks Jumbo',
+            ubicacion: 'Jumbo',
+            distancia: '100 m',
+            imagen: require('../assets/imagenes/jumbo.png')
+        },
+        {
+            id: '3',
+            nombre: 'Shell Ignacio Rivas',
+            ubicacion: 'Ignacio Rivas',
+            distancia: '800 m',
+            imagen: require('../assets/imagenes/shell.png')
+        }
+    ];
+
+    const BottomNavigation = ({ navigation }) => {
+        return (
+            <View style={styles.bottomNav}>
+                {/* Redirige a la pantalla Home */}
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                    <Image source={require('../assets/imagenes/home.png')} style={styles.navIcon} />
+                </TouchableOpacity>
+    
+                {/* Mantiene en la pantalla de búsqueda */}
+                <TouchableOpacity onPress={() => navigation.navigate('Busqueda')}>
+                    <Image source={require('../assets/imagenes/lupa.png')} style={styles.navIcon} />
+                </TouchableOpacity>
+    
+                {/* Redirige a la pantalla de perfil */}
+                <TouchableOpacity onPress={() => navigation.navigate('PerfilEmpleados')}>
+                    <Image source={require('../assets/imagenes/cuenta.png')} style={styles.navIcon} />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     return (
         <View style={styles.container}>
             <TextInput
@@ -35,28 +78,6 @@ const BusquedaScreen = () => {
                 onChangeText={setBusqueda}
             />
 
-            <MapView
-                style={styles.map}
-                initialRegion={{
-                    latitude: -34.603722,
-                    longitude: -58.381592,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-            >
-                {/* Agregar marcadores para trabajos filtrados */}
-                {trabajosFiltrados.map(trabajo => (
-                    <Marker
-                        key={trabajo.id}
-                        coordinate={{
-                            latitude: trabajo.ubicacion.latitude,
-                            longitude: trabajo.ubicacion.longitude
-                        }}
-                        title={trabajo.nombre} // Título del marcador
-                        description={`Distancia: ${trabajo.distancia} min`} // Descripción del marcador
-                    />
-                ))}
-            </MapView>
 
             <FlatList
                 data={trabajosFiltrados}
@@ -73,6 +94,7 @@ const BusquedaScreen = () => {
                 )}
             />
             <Button title="Volver a Home" onPress={() => navigation.goBack()} />
+            <BottomNavigation navigation={navigation} />
         </View>
     );
 };
@@ -94,10 +116,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         elevation: 2,
     },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-        zIndex: -1,
-    },
+   
     card: {
         flexDirection: 'row',
         margin: 10,
