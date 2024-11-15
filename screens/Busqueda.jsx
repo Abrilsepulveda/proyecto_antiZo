@@ -1,6 +1,6 @@
 // Busqueda.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, FlatList, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, FlatList, Button, TouchableOpacity  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import firebase from '../Firebase';
 
@@ -24,6 +24,27 @@ const BusquedaScreen = () => {
     const trabajosFiltrados = trabajos.filter(trabajo => 
         trabajo.nombre.toLowerCase().includes(busqueda.toLowerCase())
     );
+
+    const BottomNavigation = ({ navigation }) => {
+        return (
+            <View style={styles.bottomNav}>
+                {/* Redirige a la pantalla Home */}
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                    <Image source={require('../assets/home.png')} style={styles.navIcon} />
+                </TouchableOpacity>
+    
+                {/* Mantiene en la pantalla de búsqueda */}
+                <TouchableOpacity onPress={() => navigation.navigate('Busqueda')}>
+                    <Image source={require('../assets/lupa.png')} style={styles.navIcon} />
+                </TouchableOpacity>
+    
+                {/* Redirige a la pantalla de perfil */}
+                <TouchableOpacity onPress={() => navigation.navigate('Usuario')}>
+                    <Image source={require('../assets/cuenta.png')} style={styles.navIcon} />
+                </TouchableOpacity>
+            </View>
+        );
+    };
 
     return (
         <View style={styles.container}>
@@ -50,6 +71,7 @@ const BusquedaScreen = () => {
                 )}
             />
             <Button title="Volver a Home" onPress={() => navigation.goBack()} />
+            <BottomNavigation navigation={navigation} />
         </View>
     );
 };
