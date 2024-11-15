@@ -13,8 +13,8 @@ export default function RegistroEmpleado({ navigation }) {
     const [apellidos, setApellidos] = useState(''); // Estado para almacenar los apellidos
     const [email, setEmail] = useState(''); // Estado para almacenar el email
     const [password, setPassword] = useState(''); // Estado para almacenar la contraseña
-    const [role, setRole] = useState('empleado'); // Estado para almacenar el rol
     const [contacto, setContacto] = useState(''); // Estado para almacenar el contacto
+    const [error, setError] = useState('');
 
     // Función para validar los inputs
     const validateInputs = () => {
@@ -145,5 +145,9 @@ const styles = StyleSheet.create({
         color: '#A4E168',
         fontWeight: 'bold',
         textDecorationLine: 'underline',
+    },
+    errorMessage: { // Nuevo estilo para el mensaje de error
+        color: 'red',
+        marginBottom: 10,
     },
 });
