@@ -36,20 +36,20 @@ export default function MyStack() {
     const getUserRole = async (uid) => {
         const userDoc = await getDoc(doc(db, 'empresas', uid));
         if (userDoc.exists()) {
-            setUserRole(userDoc.data().role); // Asignamos el rol si se encuentra en Firestore
+            setUserRole(userDoc.data().role); // Asigna el rol si se encuentra en Firestore
         } else {
-            setUserRole('empleado'); // Si no existe en empresas, lo consideramos como empleado por defecto
+            setUserRole('empleado'); // Si no existe en empresas, lo considera como empleado por defecto
         }
     };
 
     useEffect(() => {
         const user = auth.currentUser;
         if (user) {
-            getUserRole(user.uid); // Obtenemos el rol del usuario autenticado
+            getUserRole(user.uid); // Obtiene el rol del usuario autenticado
         }
     }, [auth.currentUser]);
 
-    // Dependiendo del rol, configuramos las pantallas del Stack
+    // Dependiendo del rol, configura las pantallas del Stack
     return (
         <Stack.Navigator initialRouteName="Login">
             {/* Pantalla Login */}
@@ -57,7 +57,7 @@ export default function MyStack() {
                 name="Login"
                 component={Login}
                 options={{
-                    headerShown: false, // Ocultar el header si no lo necesitas
+                    headerShown: false, // Ocultar el header si no lo necesito
                 }}
             />
 
