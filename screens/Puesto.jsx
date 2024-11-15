@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function JobDetails() {
 const navigation = useNavigation();
 
+    //ejemplo de solicitud de trabajo
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
