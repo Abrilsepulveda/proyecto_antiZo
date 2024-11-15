@@ -4,7 +4,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 //Imágenes 
 const images = [
-    require('c:\Users\diore_dawekbr\Downloads\imagen jumbo.jpg'),
+    require('jumbo.png'),
+    require('shell.png'),
+    require('paseo.png'),
+    require('stock center.png'),
+
 ]
 export default function DroneScreen({ navigation }) {
     return (
