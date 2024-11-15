@@ -130,3 +130,30 @@ function UsuariosAdd() {
     </View>
   );
 }
+// Estilos para el contenedor y el mapa
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 60, // Descuento de la altura de la barra de navegación
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: 60,
+    backgroundColor: '#e0f7fa',
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+  navbarIcon: {
+    color: '#4CAF50',
+  },
+});
