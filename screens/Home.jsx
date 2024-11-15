@@ -73,17 +73,6 @@ function Busqueda() {
   );
 }
 
-// Estilos para el contenedor y el mapa
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, // Ocupo toda la pantalla con el contenedor
-  },
-  map: {
-    width: Dimensions.get('window').width, // El ancho del mapa es igual al de la pantalla
-    height: Dimensions.get('window').height, // El alto del mapa es igual al de la pantalla
-  },
-});
-
 // Creo el Stack Navigator para la navegación entre pantallas
 const Stack = createStackNavigator();
 
