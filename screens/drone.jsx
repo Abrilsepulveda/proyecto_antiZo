@@ -4,5 +4,20 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 //Imágenes 
 const images = [
-    
+    require('../assets/img1.jpg'),
 ]
+export default function DroneScreen({ navigation }) {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Icon name="arrow-back" size={24} color="#007aff" />
+        </TouchableOpacity>
+        <Text style={styles.title}>Drone</Text>
+        <View style={styles.imageGrid}>
+          {images.map((img, index) => (
+            <Image key={index} source={img} style={styles.image} />
+          ))}
+        </View>
+      </View>
+    );
+  }
