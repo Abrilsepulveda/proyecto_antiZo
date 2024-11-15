@@ -8,6 +8,8 @@ import Login from "../screens/Login";
 import EmpresaAdd from "../screens/EmpresaAdd";
 import UsuariosAdd from "../screens/UsuariosAdd";
 import Home from "../screens/Home";
+import Puesto from "../screens/Puesto";
+import Drone from "../screens/Drone";
 import Busqueda from "../screens/Busqueda";
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
@@ -127,6 +129,39 @@ export default function MyStack() {
                     }}
                 />
             )}
+            {/* Pantalla Puesto*/}
+            {(userRole === 'empresa' || userRole === 'empleado') && (
+                <Stack.Screen
+                    name="Puesto"
+                    component={Puesto}
+                    options={{
+                        title: "Puesto",
+                        headerTintColor: 'white',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: '#304A6E',
+                        },
+                    }}
+                />
+            )}
+            {/* Pantalla Drone*/}
+            {(userRole === 'empresa' || userRole === 'empleado') && (
+                <Stack.Screen
+                    name="Drone"
+                    component={Drone}
+                    options={{
+                        title: "Drone",
+                        headerTintColor: 'white',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: '#304A6E',
+                        },
+                    }}
+                />
+            )}
+
+
+            
         </Stack.Navigator>
     );
 }
