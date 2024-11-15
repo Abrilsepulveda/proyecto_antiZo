@@ -6,7 +6,7 @@ import firebase from '../Firebase';
 
 // Componente principal de la pantalla de búsqueda
 const BusquedaScreen = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation();// Hook para manejar la navegación entre pantallas
     const [busqueda, setBusqueda] = useState('');
 
     useEffect(() => {
