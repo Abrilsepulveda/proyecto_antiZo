@@ -33,5 +33,12 @@ const navigation = useNavigation();
             <Text style={styles.label}>Rango Etario:</Text>
             <Text style={styles.info}>Entre 18 y 30 años</Text>
 
+            <TouchableOpacity
+                style={styles.applyButton}
+                onPress={() => navigation.navigate('Busqueda')}
+            >
+            <Text style={styles.applyButtonText}>Aplicar</Text>
+            </TouchableOpacity>
+
             </View>
        )}
