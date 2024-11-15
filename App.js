@@ -8,7 +8,7 @@ import MyStack from "../proyecto_antiZo/stack/MyStack";
 export default function App() {
   return (
     <NavigationContainer>
-      {/* Llamamos a MyStack para que maneje la navegación */}
+      {/* Llamamos a MyStack*/}
       <MyStack />
     </NavigationContainer>
   );

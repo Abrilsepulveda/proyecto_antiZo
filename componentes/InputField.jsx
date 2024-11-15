@@ -1,10 +1,29 @@
-import React from 'react';
-import { TextInput, StyleSheet, Text, View } from 'react-native';
+// InputField.js
+import React, { useState, useEffect } from 'react';
+import { TextInput, StyleSheet, Text, View, Animated } from 'react-native';
 
+export default function InputField({ 
+    placeholder, 
+    value, 
+    onChangeText, 
+    keyboardType = 'default', 
+    secureTextEntry = false, 
+    error 
+}) {
+    const [shakeAnim] = useState(new Animated.Value(0));
 
-export default function InputField({ placeholder, value, onChangeText, keyboardType = 'default', secureTextEntry = false, error }) {
+    useEffect(() => {
+        if (error) {
+            Animated.sequence([
+                Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
+                Animated.timing(shakeAnim, { toValue: -10, duration: 50, useNativeDriver: true }),
+                Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
+            ]).start();
+        }
+    }, [error]);
+
     return (
-        <View style={styles.container}>
+        <Animated.View style={[styles.container, { transform: [{ translateX: shakeAnim }] }]}>
             <TextInput
                 style={[styles.input, error && styles.inputError]}
                 placeholder={placeholder}
@@ -14,12 +33,11 @@ export default function InputField({ placeholder, value, onChangeText, keyboardT
                 secureTextEntry={secureTextEntry}
             />
             {error && <Text style={styles.errorText}>{error}</Text>}
-        </View>
+        </Animated.View>
     );
 }
 
-
-//estilos
+// Estilos
 const styles = StyleSheet.create({
     container: {
         width: '100%',

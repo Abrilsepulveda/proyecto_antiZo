@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { createUserWithEmailAndPassword } from '../Firebase';
-import {doc, setDoc } from 'firebase/firestore';
-import {auth, db} from "../Firebase";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../Firebase';
 import InputField from "../componentes/InputField";
-
 
 export default function RegistroEmpresa({ navigation }) {
     const [nombreEmpresa, setNombreEmpresa] = useState('');
@@ -13,12 +12,11 @@ export default function RegistroEmpresa({ navigation }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [contacto, setContacto] = useState('');
-    const [role, setRole] = useState('empleado'); // Estado para almacenar el rol
     const [error, setError] = useState('');
 
     // Función para validar los inputs
     const validateInputs = () => {
-        if (!nombreEmpresa || !rubro || !email || !password || !confirmPassword || !contacto){
+        if (!nombreEmpresa || !rubro || !email || !password || !confirmPassword || !contacto) {
             setError('Todos los campos son obligatorios!!!');
             return false;
         }
@@ -28,32 +26,38 @@ export default function RegistroEmpresa({ navigation }) {
         }
         setError('');
         return true;
-    }; 
+    };
 
     // Función para manejar el registro de una empresa
-    const handleRegistroEmpresa = () => {
+    const handleRegistroEmpresa = async () => {
         if (!validateInputs()) return;
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(async (userCredential) => {
-                const user = userCredential.user;// Obtenemos el usuario creado en Firebase
+        try {
+            // Intentar crear el usuario en Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user; // Obtenemos el usuario creado
 
-                // Almacenamos la información de la empresa en Firestore
-                await setDoc(doc(db, "empresas", user.uid), {
-                    nombreEmpresa: nombreEmpresa,
-                    rubro: rubro,
-                    email: email,
-                    contacto: contacto,
-                    role: 'empresa', // El rol de este usuario será 'empresa'
-                    active: true,  // Indicamos que la empresa está activa por defecto
-                });
-                console.log('Empresa registrada con éxito');
-                navigation.navigate('Home'); // Navegamos a la pantalla Home después de registrar la empresa
-            })
-            .catch(error => {
-                console.error('Error al registrar la empresa:', error);
-                setError('Error al registrar la empresa. Inténtalo de nuevo.');
+            // Almacenamos la información de la empresa en Firestore
+            await setDoc(doc(db, "empresas", user.uid), {
+                nombreEmpresa,
+                rubro,
+                email,
+                contacto,
+                role: 'empresa', // El rol de este usuario será 'empresa'
+                active: true,  // Indica que la empresa está activa por defecto
             });
+
+            console.log('Empresa registrada con éxito');
+            // Navegar a la pantalla Home después de registrar la empresa
+            navigation.navigate('Home');
+        } catch (error) {
+            console.error('Error al registrar la empresa:', error);
+            if (error.code === 'auth/email-already-in-use') {
+                setError('Este correo electrónico ya está registrado.');
+            } else {
+                setError('Error al registrar la empresa. Inténtalo de nuevo.');
+            }
+        }
     };
 
     return (
@@ -61,7 +65,6 @@ export default function RegistroEmpresa({ navigation }) {
             <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
             <Text style={styles.title}>Registro Empresa</Text>
 
-            <InputField placeholder="Nombre de la Empresa" value={nombreEmpresa} onChangeText={setNombreEmpresa} error={error && !nombreEmpresa ? error : ''} />
             <InputField placeholder="Nombre de la Empresa" value={nombreEmpresa} onChangeText={setNombreEmpresa} error={error && !nombreEmpresa ? error : ''} />
             <InputField placeholder="Rubro" value={rubro} onChangeText={setRubro} error={error && !rubro ? error : ''} />
             <InputField placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" error={error && !email ? error : ''} />
@@ -75,7 +78,6 @@ export default function RegistroEmpresa({ navigation }) {
             <TouchableOpacity style={styles.button} onPress={handleRegistroEmpresa}>
                 <Text style={styles.buttonText}>Registrar Empresa</Text>
             </TouchableOpacity>
-
 
             {/* Opción para registrarse como usuario */}
             <TouchableOpacity onPress={() => navigation.navigate('UsuariosAdd')}>
