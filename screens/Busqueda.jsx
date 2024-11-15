@@ -102,55 +102,55 @@ const BusquedaScreen = () => {
     );
 };
 
+// Estilos para los componentes
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#f2f2f2', // Fondo gris claro
     },
     searchInput: {
-        marginTop: 50,
-        marginHorizontal: 20,
-        padding: 10,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        fontSize: 18,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        elevation: 2,
+        marginTop: 50, // Espaciado superior
+        marginHorizontal: 20, // Margen lateral
+        padding: 10, // Espaciado interno
+        backgroundColor: '#fff', // Fondo blanco
+        borderRadius: 10, // Bordes redondeados
+        fontSize: 18, // Tamaño del texto
+        shadowColor: '#000', // Sombra negra
+        shadowOffset: { width: 0, height: 2 }, // Offset de la sombra
+        shadowOpacity: 0.2, // Opacidad de la sombra
+        elevation: 2, // Altura para sombra en Android
     },
-   
     card: {
-        flexDirection: 'row',
-        margin: 10,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        overflow: 'hidden',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        elevation: 2,
+        flexDirection: 'row', // Elementos en fila
+        margin: 10, // Margen entre tarjetas
+        backgroundColor: '#fff', // Fondo blanco
+        borderRadius: 10, // Bordes redondeados
+        overflow: 'hidden', // Oculta elementos fuera del borde
+        shadowColor: '#000', // Sombra negra
+        shadowOffset: { width: 0, height: 2 }, // Offset de la sombra
+        shadowOpacity: 0.1, // Opacidad baja
+        elevation: 2, // Altura para sombra en Android
     },
     cardImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 10,
+        width: 100, // Ancho de la imagen
+        height: 100, // Alto de la imagen
+        borderRadius: 10, // Bordes redondeados
     },
     cardContent: {
-        flex: 1,
-        padding: 10,
+        flex: 1, // Toma todo el espacio disponible
+        padding: 10, // Espaciado interno
     },
     cardTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 18, // Tamaño del texto
+        fontWeight: 'bold', // Texto en negrita
     },
     cardSubtitle: {
-        color: '#666',
-        marginVertical: 5,
+        color: '#666', // Texto gris
+        marginVertical: 5, // Margen vertical
     },
     cardDistance: {
-        color: '#333',
-        fontWeight: 'bold',
+        color: '#333', // Texto gris oscuro
+        fontWeight: 'bold', // Texto en negrita
     },
 });
 
