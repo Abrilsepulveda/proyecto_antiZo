@@ -50,6 +50,7 @@ const BusquedaScreen = () => {
         }
     ];
 
+    // Barra de navegación inferior
     const BottomNavigation = ({ navigation }) => {
         return (
             <View style={styles.bottomNav}>
