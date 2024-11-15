@@ -29,21 +29,21 @@ const BusquedaScreen = () => {
             id: '1',
             nombre: 'Ferracioli, Paseo de la Patagonia',
             ubicacion: 'Paseo de la Patagonia',
-            distancia: '10 mtr',
+            distancia: '2 km',
             imagen: require('../assets/imagenes/paseo.png')
         },
         {
             id: '2',
             nombre: 'Starbucks Jumbo',
             ubicacion: 'Jumbo',
-            distancia: '10 mtr',
+            distancia: '100 m',
             imagen: require('../assets/imagenes/jumbo.png')
         },
         {
             id: '3',
             nombre: 'Shell Ignacio Rivas',
             ubicacion: 'Ignacio Rivas',
-            distancia: '10 mtr',
+            distancia: '800 m',
             imagen: require('../assets/imagenes/shell.png')
         }
     ];
