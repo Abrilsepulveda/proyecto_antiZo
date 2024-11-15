@@ -6,24 +6,7 @@ import MapView, { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 // import MapView, { Marker } from 'react-native-maps';
 
-// Defino el componente "Home", que es la pantalla principal
-function Home({ navigation }) {
-  return (
-    <View>
-      <Text>Home Screen</Text>
-      {/* Uso un botón para navegar a la pantalla de agregar usuario */}
-      <Button title="Add User" onPress={() => navigation.navigate('UsuariosAdd')} />
-      {/* Uso un botón para navegar a la pantalla de agregar empresa */}
-      <Button title="Add Company" onPress={() => navigation.navigate('EmpresaAdd')} />
-      {/* Uso un botón para navegar a la pantalla de búsqueda */}
-      <Button title="Search" onPress={() => navigation.navigate('Busqueda')} />
-      {/* Uso un botón para navegar a la pantalla de login */}
-      <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
-      {/* Uso un botón para navegar a la pantalla del mapa */}
-      <Button title="Go to Map" onPress={() => navigation.navigate('MapScreen')} />
-    </View>
-  );
-}
+
 
 // Defino el componente "MapScreen", donde muestro un mapa
 function MapScreen() {
