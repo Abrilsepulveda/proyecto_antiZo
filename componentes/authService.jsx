@@ -12,7 +12,7 @@ export const registerUserWithEmail = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
 };
 
-// Registro de empresa (puedes usar la misma función o agregar lógica específica)
+// Registro de empresa 
 export const registerCompanyWithEmail = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
 };
