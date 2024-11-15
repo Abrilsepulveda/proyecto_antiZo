@@ -30,21 +30,21 @@ const BusquedaScreen = () => {
             nombre: 'Ferracioli, Paseo de la Patagonia',
             ubicacion: 'Paseo de la Patagonia',
             distancia: '10 mtr',
-            imagen: 'https://example.com/ferracioli.jpg'  // Reemplaza con la URL o ruta local de la imagen
+            imagen: require('../assets/imagenes/paseo.png')
         },
         {
             id: '2',
             nombre: 'Starbucks Jumbo',
             ubicacion: 'Jumbo',
             distancia: '10 mtr',
-            imagen: 'https://example.com/starbucks.jpg'  // Reemplaza con la URL o ruta local de la imagen
+            imagen: require('../assets/imagenes/jumbo.png')
         },
         {
             id: '3',
             nombre: 'Shell Ignacio Rivas',
             ubicacion: 'Ignacio Rivas',
             distancia: '10 mtr',
-            imagen: 'https://example.com/shell.jpg'  // Reemplaza con la URL o ruta local de la imagen
+            imagen: require('../assets/imagenes/shell.png')
         }
     ];
 
