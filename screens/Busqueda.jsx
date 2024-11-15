@@ -7,7 +7,6 @@ import firebase from '../Firebase';
 
 const BusquedaScreen = () => {
     const navigation = useNavigation();
-    const [trabajos, setTrabajos] = useState([]);
     const [busqueda, setBusqueda] = useState('');
 
     useEffect(() => {
@@ -24,6 +23,30 @@ const BusquedaScreen = () => {
     const trabajosFiltrados = trabajos.filter(trabajo => 
         trabajo.nombre.toLowerCase().includes(busqueda.toLowerCase())
     );
+
+    const trabajos = [
+        {
+            id: '1',
+            nombre: 'Ferracioli, Paseo de la Patagonia',
+            ubicacion: 'Paseo de la Patagonia',
+            distancia: '10 mtr',
+            imagen: 'https://example.com/ferracioli.jpg'  // Reemplaza con la URL o ruta local de la imagen
+        },
+        {
+            id: '2',
+            nombre: 'Starbucks Jumbo',
+            ubicacion: 'Jumbo',
+            distancia: '10 mtr',
+            imagen: 'https://example.com/starbucks.jpg'  // Reemplaza con la URL o ruta local de la imagen
+        },
+        {
+            id: '3',
+            nombre: 'Shell Ignacio Rivas',
+            ubicacion: 'Ignacio Rivas',
+            distancia: '10 mtr',
+            imagen: 'https://example.com/shell.jpg'  // Reemplaza con la URL o ruta local de la imagen
+        }
+    ];
 
     const BottomNavigation = ({ navigation }) => {
         return (
