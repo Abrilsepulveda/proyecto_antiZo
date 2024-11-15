@@ -5,4 +5,11 @@
 
        export default function JobDetails() {
         const navigation = useNavigation();
+
+        return (
+            <View style={styles.container}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <Text style={styles.backText}>←</Text>
+                </TouchableOpacity>
+            </View>
        }
