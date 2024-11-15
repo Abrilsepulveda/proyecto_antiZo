@@ -9,6 +9,9 @@ const images = [
     require('paseo.png'),
     require('stock center.png'),
     require('todo moda.png'),
+    require('niñofeliz.png'),
+
+
 
 
 ]
