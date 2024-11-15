@@ -8,6 +8,8 @@ const images = [
     require('shell.png'),
     require('paseo.png'),
     require('stock center.png'),
+    require('todo moda.png'),
+
 
 ]
 export default function DroneScreen({ navigation }) {
