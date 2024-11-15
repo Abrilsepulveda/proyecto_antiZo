@@ -4,7 +4,7 @@ import { View, Text, TextInput, StyleSheet, Image, FlatList, Button, TouchableOp
 import { useNavigation } from '@react-navigation/native';
 import firebase from '../Firebase';
 
-
+// Componente principal de la pantalla de búsqueda
 const BusquedaScreen = () => {
     const navigation = useNavigation();
     const [busqueda, setBusqueda] = useState('');
