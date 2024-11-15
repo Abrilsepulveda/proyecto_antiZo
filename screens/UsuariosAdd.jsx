@@ -5,16 +5,15 @@ import { auth, db } from '../Firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
-
-
 // Componente principal RegistroEmpleado que recibe navigation como prop
 export default function RegistroEmpleado({ navigation }) {
     const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre
     const [apellidos, setApellidos] = useState(''); // Estado para almacenar los apellidos
     const [email, setEmail] = useState(''); // Estado para almacenar el email
     const [password, setPassword] = useState(''); // Estado para almacenar la contraseña
+    const [confirmPassword, setConfirmPassword] = useState(''); // Estado para almacenar la confirmación de la contraseña
     const [contacto, setContacto] = useState(''); // Estado para almacenar el contacto
-    const [error, setError] = useState('');
+    const [error, setError] = useState(''); // Estado para manejar errores
 
     // Función para validar los inputs
     const validateInputs = () => {
@@ -31,37 +30,43 @@ export default function RegistroEmpleado({ navigation }) {
     };
 
     // Función para manejar el registro de un empleado
-    const handleRegistro = () => {
+    const handleRegistro = async () => {
         if (!validateInputs()) return;
-        // Usar Firebase para crear un usuario con email y contraseña
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(async (userCredential) => { // Si se crea el usuario exitosamente
-                const user = userCredential.user; // Obtener el usuario creado
-                // Guardar los datos del empleado en Firestore
-                await setDoc(doc(db, "empleados", user.uid), {
-                    nombre: nombre,
-                    apellidos: apellidos,
-                    email: email,
-                    contacto: contacto,
-                    role: 'empleado', // Asignamos el rol de "empleado"
-                    active: true, // Indicamos que el empleado está activo
-                });
-                console.log('Empleado registrado con éxito'); // Mensaje de éxito en consola
-                navigation.navigate('Home'); // Navegar a la pantalla de inicio
-            })
-            .catch(error => {
-                console.error('Error al registrar el empleado:', error); // Manejo de errores
-                setError('Error al registrar el empleado. Inténtalo de nuevo.');
+
+        try {
+            // Crear usuario con email y contraseña en Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user; // Obtener el usuario creado
+
+            // Guardar los datos del empleado en Firestore
+            await setDoc(doc(db, "empleados", user.uid), {
+                nombre: nombre,
+                apellidos: apellidos,
+                email: email,
+                contacto: contacto,
+                role: 'empleado', // Asignamos el rol de "empleado"
+                active: true, // Indicamos que el empleado está activo
             });
+
+            console.log('Empleado registrado con éxito');
+            navigation.navigate('Home'); // Navegar a la pantalla de inicio
+
+        } catch (error) {
+            console.error('Error al registrar el empleado:', error);
+            if (error.code === 'auth/email-already-in-use') {
+                setError('Este correo electrónico ya está registrado.');
+            } else if (error.code === 'auth/invalid-email') {
+                setError('El correo electrónico no es válido.');
+            } else {
+                setError('Error al registrar el empleado. Inténtalo de nuevo.');
+            }
+        }
     };
 
-    
     return (
-
-        <View style={styles.container}> {/*Contenedor principal*/}
-
-            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} /> 
-            <Text style={styles.title}>Registro Usuarios</Text> 
+        <View style={styles.container}>
+            <Image source={require('../assets/imagenes/logoApp.png')} style={styles.logo} />
+            <Text style={styles.title}>Registro Usuario</Text>
 
             <InputField placeholder="Nombre" value={nombre} onChangeText={setNombre} error={error && !nombre ? error : ''} />
             <InputField placeholder="Apellidos" value={apellidos} onChangeText={setApellidos} error={error && !apellidos ? error : ''} />
@@ -72,17 +77,14 @@ export default function RegistroEmpleado({ navigation }) {
 
             {error && <Text style={styles.errorMessage}>{error}</Text>}
 
-            {/* Botón para registrar al empleado */}
             <TouchableOpacity style={styles.button} onPress={handleRegistro}>
-                <Text style={styles.buttonText}>Registrarme</Text> 
+                <Text style={styles.buttonText}>Registrarme</Text>
             </TouchableOpacity>
 
-            {/* Navegar a la pantalla de registro de empresa */}
             <TouchableOpacity onPress={() => navigation.navigate('EmpresaAdd')}>
-                <Text style={styles.switchText}>Registrarse como Empresa</Text> 
+                <Text style={styles.switchText}>Registrarse como Empresa</Text>
             </TouchableOpacity>
 
-            {/* Botón para navegar a la pantalla de Login */}
             <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
                 <Text style={styles.loginButtonText}>Ir a Login</Text>
             </TouchableOpacity>
@@ -90,27 +92,26 @@ export default function RegistroEmpleado({ navigation }) {
     );
 }
 
-// Estilos para el componente
 const styles = StyleSheet.create({
-    container: { // Estilo del contenedor
+    container: {
         flex: 1,
         backgroundColor: '#EFFFA6',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
     },
-    logo: { // Estilo del logo
+    logo: {
         width: 80,
         height: 80,
         marginBottom: 20,
     },
-    title: { // Estilo del título
+    title: {
         fontSize: 36,
         fontWeight: 'bold',
         color: '#000',
         marginBottom: 30,
     },
-    input: { // Estilo de los campos de entrada
+    input: {
         width: '100%',
         padding: 15,
         borderColor: '#ccc',
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 15,
     },
-    button: { // Estilo del botón
+    button: {
         width: '100%',
         backgroundColor: '#A4E168',
         padding: 15,
@@ -126,27 +127,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20,
     },
-    buttonText: { // Estilo del texto del botón
+    buttonText: {
         color: '#fff',
         fontWeight: 'bold',
     },
-    switchText: { // Estilo del texto para cambiar de registro
+    switchText: {
         color: '#000',
         marginTop: 15,
         textDecorationLine: 'underline',
     },
-    loginButton: { // Estilo del botón para ir a login
+    loginButton: {
         marginTop: 20,
         padding: 15,
         borderRadius: 8,
         alignItems: 'center',
     },
-    loginButtonText: { // Estilo del texto del botón de login
+    loginButtonText: {
         color: '#A4E168',
         fontWeight: 'bold',
         textDecorationLine: 'underline',
     },
-    errorMessage: { // Nuevo estilo para el mensaje de error
+    errorMessage: {
         color: 'red',
         marginBottom: 10,
     },
