@@ -45,65 +45,58 @@ const navigation = useNavigation();
     );
 }
 
+// Estilos para los componentes
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#E0F5A1',
-        alignItems: 'center',
+        backgroundColor: '#E0F5A1', // Fondo verde claro
+        alignItems: 'center', // Centra los elementos horizontalmente
     },
-    
     backButton: {
         position: 'absolute',
-        top: 20,
-        left: 20,
+        top: 20, // Margen desde la parte superior
+        left: 20, // Margen desde la izquierda
     },
-    
     backText: {
-        fontSize: 24,
-        color: '#555',
+        fontSize: 24, // Tamaño del texto del botón de regreso
+        color: '#555', // Color gris oscuro
     },
-    
     logo: {
-        width: 80,
-        height: 80,
-        marginBottom: 20,
+        width: 80, // Ancho del logo
+        height: 80, // Altura del logo
+        marginBottom: 20, // Espaciado inferior
     },
-    
     companyName: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#006341',
-        marginBottom: 20,
+        fontSize: 24, // Tamaño de texto del nombre de la empresa
+        fontWeight: 'bold', // Texto en negrita
+        color: '#006341', // Color verde
+        marginBottom: 20, // Espaciado inferior
     },
-
     label: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#333',
-        alignSelf: 'flex-start',
-        marginVertical: 4,
+        fontSize: 16, // Tamaño de texto para las etiquetas
+        fontWeight: 'bold', // Texto en negrita
+        color: '#333', // Color gris oscuro
+        alignSelf: 'flex-start', // Alineación a la izquierda
+        marginVertical: 4, // Margen vertical
     },
-
     info: {
-        fontSize: 16,
-        color: '#333',
-        alignSelf: 'flex-start',
-        marginBottom: 8,
+        fontSize: 16, // Tamaño de texto para la información
+        color: '#333', // Color gris oscuro
+        alignSelf: 'flex-start', // Alineación a la izquierda
+        marginBottom: 8, // Espaciado inferior
     },
-
     applyButton: {
-        marginTop: 30,
-        backgroundColor: '#B7E497',
-        paddingVertical: 15,
-        paddingHorizontal: 40,
-        borderRadius: 8,
-        alignItems: 'center',
+        marginTop: 30, // Espaciado superior
+        backgroundColor: '#B7E497', // Fondo verde más oscuro
+        paddingVertical: 15, // Espaciado vertical del botón
+        paddingHorizontal: 40, // Espaciado horizontal del botón
+        borderRadius: 8, // Bordes redondeados
+        alignItems: 'center', // Centra el texto dentro del botón
     },
-
     applyButtonText: {
-        fontSize: 18,
-        color: '#333',
-        fontWeight: 'bold',
+        fontSize: 18, // Tamaño del texto dentro del botón
+        color: '#333', // Color gris oscuro
+        fontWeight: 'bold', // Texto en negrita
     },
 });
