@@ -11,5 +11,10 @@
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                     <Text style={styles.backText}>←</Text>
                 </TouchableOpacity>
+
+                <Image source={require('../assets/starbucks_logo.png')} style={styles.logo} />
+
+                <Text style={styles.companyName}>Starbucks</Text>
+
             </View>
-       }
+       )}
