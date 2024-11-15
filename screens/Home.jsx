@@ -7,7 +7,35 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // import MapView, { Marker } from 'react-native-maps';
 
 // Defino el componente "Home", que es la pantalla principal
-
+function Home({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.map}>
+        {/* Botones de navegación a las distintas pantallas */}
+        <Button title="Add User" onPress={() => navigation.navigate('UsuariosAdd')} />
+        <Button title="Add Company" onPress={() => navigation.navigate('EmpresaAdd')} />
+        <Button title="Search" onPress={() => navigation.navigate('Busqueda')} />
+        <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
+        <Button title="Go to Map" onPress={() => navigation.navigate('MapScreen')} />
+      </View>
+          {/* Barra de navegación inferior */}
+          <View style={styles.bottomNav}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Icon name="home-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Busqueda')}>
+          <Icon name="search-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('EmpresaAdd')}>
+          <Icon name="business-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('UsuariosAdd')}>
+          <Icon name="person-outline" size={28} style={styles.navbarIcon} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
 
 // Defino el componente "MapScreen", donde muestro un mapa
 function MapScreen() {
