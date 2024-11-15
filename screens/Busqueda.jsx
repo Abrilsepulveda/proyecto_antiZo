@@ -7,12 +7,13 @@ import firebase from '../Firebase';
 // Componente principal de la pantalla de búsqueda
 const BusquedaScreen = () => {
     const navigation = useNavigation();// Hook para manejar la navegación entre pantallas
-    const [busqueda, setBusqueda] = useState('');
+    const [busqueda, setBusqueda] = useState(''); // Estado para almacenar el texto de búsqueda
 
+    // Hook para cargar los trabajos desde Firestore al cargar la pantalla
     useEffect(() => {
         const fetchTrabajos = async () => {
-            const trabajosSnapshot = await firebase.firestore().collection('trabajos').get();
-            const trabajosData = trabajosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const trabajosSnapshot = await firebase.firestore().collection('trabajos').get(); // Obtiene los datos de la colección "trabajos"
+            const trabajosData = trabajosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Mapea los datos obtenidos
             setTrabajos(trabajosData);
         };
 
